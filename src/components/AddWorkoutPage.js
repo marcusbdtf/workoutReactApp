@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useMsal } from "@azure/msal-react";
 
 function AddWorkoutPage() {
   const [name, setName] = useState("");
@@ -8,10 +9,14 @@ function AddWorkoutPage() {
   const [weight, setWeight] = useState("");
   const navigate = useNavigate();
 
+  const { accounts } = useMsal();
+  const userId = accounts[0].idTokenClaims.oid;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("https://workout-api-mh.azurewebsites.net/add", {
+      await axios.post("https://workout-api-mh.azurewebsites.net/workouts", {
+        userId,
         name,
         reps,
         weight,
@@ -36,15 +41,13 @@ function AddWorkoutPage() {
             <label htmlFor="name">Name:</label>
             <input
                 type="text" id="name" className="form-control" value={name} onChange={(event) => 
-                    setName(event.target.value)}
-            />
+                    setName(event.target.value)}/>
             </div>
             <div className="form-group">
             <label htmlFor="reps">Reps:</label>
             <input
                 type="text" id="reps"
-                className="form-control" value={reps} onChange={(event) => setReps(event.target.value)}
-            />
+                className="form-control" value={reps} onChange={(event) => setReps(event.target.value)}/>
             </div>
             <div className="form-group"> 
             <label htmlFor="weight">Weight:</label>
@@ -59,7 +62,6 @@ function AddWorkoutPage() {
 
                 <button type="button" className="btn btn-secondary mt-3" 
                 onClick={handleBack}> Back </button>
-
             </div>
         </form>
         </div>

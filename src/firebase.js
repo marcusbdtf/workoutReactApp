@@ -2,8 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  // your firebase config object
-    apiKey: 'AIzaSyBND1kKh8nwse08Z7KATCbMTqJwef03ySM',
+  apiKey: 'AIzaSyBND1kKh8nwse08Z7KATCbMTqJwef03ySM',
   authDomain: "workoutlog-947f7.firebaseapp.com",
   projectId: "workoutlog-947f7",
   storageBucket: "workoutlog-947f7.appspot.com",
