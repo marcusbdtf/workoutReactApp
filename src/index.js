@@ -9,7 +9,7 @@ export const pca = new PublicClientApplication({
   auth:{
     clientId: 'ff534cd6-bff6-46af-83e5-48211dd64e13',
     authority: 'https://login.microsoftonline.com/common/',
-    redirectUri: '/',
+    redirectUri: 'https://reactwebapp-mh.azurewebsites.net/.auth/login/aad/callback',
   },
   cache: {
     cacheLocation: 'localStorage',
