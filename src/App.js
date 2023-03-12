@@ -4,14 +4,17 @@ import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import AddWorkoutPage from './components/AddWorkoutPage';
 import EditWorkoutPage from './components/EditWorkoutPage';
+import AuthService from './components/AuthService';
 import { useEffect } from 'react';
 import { MsalProvider, useMsal, useIsAuthenticated } from '@azure/msal-react';
 import { InteractionRequiredAuthError } from 'msal';
 
 
-function App({msalInstance}) {
+const authService = new AuthService();
+
+function App() {
   return (
-    <MsalProvider instance={msalInstance}>
+    <MsalProvider instance={authService.myMsal}>
       <Router>
         <Pages/>
         <NavBar />
