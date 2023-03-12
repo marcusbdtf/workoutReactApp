@@ -4,7 +4,8 @@ export default class AuthService {
   constructor() {
     const config = {
       auth: {
-        clientId: process.env.REACT_APP_CLIENT_ID,
+        clientId: "e361266f-0540-4d57-bb2f-688d0d8b4953",
+        authority: `https://login.microsoftonline.com/5b679921-53f7-4642-a251-8a603608d21c`
       },
     };
 
