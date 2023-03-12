@@ -20,7 +20,13 @@ export default class AuthService {
 
   login = async () => {
     try {
-      const response = await this.myMsal.loginPopup(this.request);
+      const pkceParams = {
+        codeChallengeMethod: 'S256', // use SHA-256 hashing for code challenge
+      };
+      const response = await this.myMsal.loginPopup({
+        ...this.request,
+        authenticationParameters: pkceParams,
+      });
       this.idToken = response.idToken;
       this.accessToken = response.accessToken;
     } catch (error) {
