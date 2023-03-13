@@ -6,7 +6,9 @@ export default class AuthService {
       auth: {
         clientId: process.env.REACT_APP_CLIENT_ID,
         authority: "https://login.microsoftonline.com/common",
-        redirectUri: "https://reactwebapp-mh.azurewebsites.net/.auth/login/aad/callback"
+        redirectUri: window.location.origin,
+        responseType: "id_token token",
+        postLogoutRedirectUri: window.location.origin,
       },
       cache: {
         cacheLocation: 'localStorage',
@@ -37,7 +39,7 @@ export default class AuthService {
   };
 
   logout = async () => {
-    await this.myMsal.logoutRedirect();
+    await this.myMsal.logout();
   };
 
   getToken = async () => {
@@ -58,7 +60,6 @@ export default class AuthService {
       if (error.name === "InteractionRequiredAuthError") {
         const interactiveRequest = {
           scopes: this.request.scopes,
-          loginHint: this.myMsal.getAccount().username,
         };
 
         const authResult = await this.myMsal.acquireTokenPopup(interactiveRequest);
