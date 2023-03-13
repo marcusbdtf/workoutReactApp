@@ -8,7 +8,7 @@ export default class AuthService {
         authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}/v2.0`,
         redirectUri: process.env.REACT_APP_REDIRECT_URI,
         responseType: "id_token",
-        postLogoutRedirectUri: REACT_APP_REDIRECT_URI,
+        postLogoutRedirectUri: process.env.REACT_APP_REDIRECT_URI,
       },
       cache: {
         cacheLocation: 'localStorage',
