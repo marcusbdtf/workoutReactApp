@@ -1,14 +1,22 @@
-import * as msal from "@azure/msal-browser";
+import { PublicClientApplication } from "@azure/msal-browser";
 
 export default class AuthService {
   constructor() {
     const config = {
       auth: {
         clientId: process.env.REACT_APP_CLIENT_ID,
+        authority: "https://login.microsoftonline.com/common",
+        redirectUri: "https://reactwebapp-mh.azurewebsites.net/.auth/login/aad/callback"
       },
+      cache: {
+        cacheLocation: 'localStorage',
+      },
+      system: {
+        iframeTimeout: 6000
+      }
     };
 
-    this.myMsal = new msal.PublicClientApplication(config);
+    this.myMsal = new PublicClientApplication(config);
     this.request = {
       scopes: ['user.read'],
     };
@@ -22,18 +30,19 @@ export default class AuthService {
       const response = await this.myMsal.loginPopup(this.request);
       this.idToken = response.idToken;
       this.accessToken = response.accessToken;
+      console.log(response)
     } catch (error) {
       console.log(error);
     }
   };
 
   logout = async () => {
-    await this.myMsal.logout();
+    await this.myMsal.logoutRedirect();
   };
 
   getToken = async () => {
     try {
-      const accounts = this.myMsal.getAllAccounts();
+      const accounts = await this.myMsal.getAllAccounts();
 
       if (accounts.length === 0) throw new Error("login_required");
 
@@ -46,9 +55,10 @@ export default class AuthService {
 
       return authResult.accessToken;
     } catch (error) {
-      if (error instanceof msal.InteractionRequiredAuthError) {
+      if (error.name === "InteractionRequiredAuthError") {
         const interactiveRequest = {
           scopes: this.request.scopes,
+          loginHint: this.myMsal.getAccount().username,
         };
 
         const authResult = await this.myMsal.acquireTokenPopup(interactiveRequest);
