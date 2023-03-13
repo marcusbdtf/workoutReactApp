@@ -5,9 +5,9 @@ export default class AuthService {
     const config = {
       auth: {
         clientId: process.env.REACT_APP_CLIENT_ID,
-        authority: "https://login.microsoftonline.com/common",
+        authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}`,
         redirectUri: window.location.origin,
-        responseType: "id_token token",
+        responseType: "id_token",
         postLogoutRedirectUri: window.location.origin,
       },
       cache: {
