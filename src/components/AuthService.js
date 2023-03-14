@@ -3,19 +3,20 @@ import { PublicClientApplication } from "@azure/msal-browser";
 export default class AuthService {
   constructor() {
     const config = {
-        auth: {
-            clientId: process.env.REACT_APP_CLIENT_ID,
-            authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}`,
-            redirectUri: process.env.REACT_APP_REDIRECT_URI,
-            responseType: "id_token",
-          },
-          cache: {
-            cacheLocation: 'localStorage',
-          },
-          system: {
-            iframeTimeout: 6000
-          }
-        };
+      auth: {
+        clientId: process.env.REACT_APP_CLIENT_ID,
+        authority: `https://login.microsoftonline.com/5b679921-53f7-4642-a251-8a603608d21c`,
+        redirectUri: "https://reactwebapp-mh.azurewebsites.net/.auth/login/aad/callback",
+        responseType: "id_token",
+      },
+      cache: {
+        cacheLocation: 'localStorage',
+      },
+      system: {
+        iframeTimeout: 6000
+      }
+    };
+    
 
     this.myMsal = new PublicClientApplication(config);
     this.request = {
