@@ -4,7 +4,7 @@ export default class AuthService {
   constructor() {
     const config = {
       auth: {
-        clientId: process.env.REACT_APP_CLIENT_ID,
+        clientId: "bc05b57c-a494-4023-baa7-548011196461",
         authority: `https://login.microsoftonline.com/5b679921-53f7-4642-a251-8a603608d21c`,
         redirectUri: "https://reactwebapp-mh.azurewebsites.net/.auth/login/aad/callback",
         responseType: "id_token",
