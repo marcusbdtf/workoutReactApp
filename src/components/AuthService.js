@@ -5,7 +5,7 @@ export default class AuthService {
     const config = {
         auth: {
             clientId: process.env.REACT_APP_CLIENT_ID,
-            authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}`,
+            authority: `https://login.microsoftonline.com/5b679921-53f7-4642-a251-8a603608d21c`,
             redirectUri: process.env.REACT_APP_REDIRECT_URI,
             responseType: "id_token",
           },
