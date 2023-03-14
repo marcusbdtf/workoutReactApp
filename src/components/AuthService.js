@@ -4,11 +4,10 @@ export default class AuthService {
   constructor() {
     const config = {
       auth: {
-        clientId: "bc05b57c-a494-4023-baa7-548011196461",
+        clientId: process.env.REACT_APP_CLIENT_ID,
         authority: `https://login.microsoftonline.com/5b679921-53f7-4642-a251-8a603608d21c`,
         redirectUri: "https://reactwebapp-mh.azurewebsites.net/.auth/login/aad/callback",
-        responseType: "code",
-        codeChallengeMethod: "S256", 
+        responseType: "id_token token",
       },
       cache: {
         cacheLocation: 'localStorage',
@@ -17,7 +16,6 @@ export default class AuthService {
         iframeTimeout: 6000
       }
     };
-    
     
 
     this.myMsal = new PublicClientApplication(config);
